@@ -1,4 +1,5 @@
 import { Metadata } from "next";
+import { Location, PrismaClient } from "@prisma/client";
 import Description from "./components/Description";
 import ReservationCard from "./components/ReservationCard";
 import RestaurantLayout from "./RestaurantLayout";
@@ -8,10 +9,47 @@ export const metadata: Metadata = {
   description: "The Next.js Bootcamp Project",
 };
 
-export default function RestaurantDetails() {
+export interface RestaurantPageProps {
+  id: number;
+  name: string;
+  images: string[];
+  description: string;
+  slug: string;
+  location: Location;
+}
+
+const prisma = new PrismaClient();
+const fetchRestaurantsBySlugs = async (
+  slug: string,
+  id: number
+): Promise<RestaurantPageProps> => {
+  const restaurant = await prisma.restaurant.findUnique({
+    where: { slug, id },
+    select: {
+      id: true,
+      name: true,
+      images: true,
+      description: true,
+      slug: true,
+      location: true,
+    },
+  });
+  if (!restaurant) throw new Error();
+  return restaurant;
+};
+
+export default async function RestaurantDetails({
+  params,
+}: {
+  params: { slug: string };
+}) {
+  const id = parseInt(params.slug.split("_")[0]);
+  const slug = params.slug.split("_")[1];
+  const restaurant = await fetchRestaurantsBySlugs(slug, id);
+
   return (
-    <RestaurantLayout>
-      <Description />
+    <RestaurantLayout slug={params.slug}>
+      <Description restaurant={restaurant} />
       <ReservationCard />
     </RestaurantLayout>
   );
