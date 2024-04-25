@@ -2,11 +2,13 @@ import RestaurantNavbar from "./RestaurantNavbar";
 import ReviewCard from "./ReviewCard";
 import { RestaurantPageProps } from "../page";
 import { Restaurant } from "@prisma/client";
+import { calculateReviewRatingAverage } from "@/utils/calculateReviewRatingAverage";
+import Stars from "@/components/Stars";
 
 export default function Description({
   restaurant,
 }: {
-  restaurant: Restaurant;
+  restaurant: RestaurantPageProps;
 }) {
   return (
     <div className='bg-white w-[70%] rounded p-3 shadow'>
@@ -20,11 +22,16 @@ export default function Description({
       {/* RATING */}
       <div className='flex items-end'>
         <div className='ratings mt-2 flex items-center'>
-          <p>*****</p>
-          <p className='text-reg ml-3'>4.9</p>
+          <Stars reviews={restaurant.reviews} />
+          <p className='text-reg ml-3'>
+            {calculateReviewRatingAverage(restaurant.reviews)}
+          </p>
         </div>
         <div>
-          <p className='text-reg ml-4'>600 Reviews</p>
+          <p className='text-reg ml-4'>
+            {restaurant.reviews.length} Review
+            {restaurant.reviews.length === 1 ? "" : "s"}
+          </p>
         </div>
       </div>
 
@@ -56,7 +63,9 @@ export default function Description({
           What 100 people are saying
         </h1>
         <div>
-          <ReviewCard />
+          {restaurant.reviews.map((review) => (
+            <ReviewCard review={review} />
+          ))}
         </div>
       </div>
     </div>
