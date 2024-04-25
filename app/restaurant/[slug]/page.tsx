@@ -3,6 +3,7 @@ import { Location, PrismaClient, Review } from "@prisma/client";
 import Description from "./components/Description";
 import ReservationCard from "./components/ReservationCard";
 import RestaurantLayout from "./RestaurantLayout";
+import { notFound } from "next/navigation";
 
 export const metadata: Metadata = {
   title: "Milestones Grill (Toronto) | OpenTable",
@@ -33,7 +34,7 @@ const fetchRestaurantsBySlugs = async (slug: string, id: number) => {
       reviews: true,
     },
   });
-  if (!restaurant) throw new Error();
+  if (!restaurant) notFound();
   return restaurant;
 };
 
