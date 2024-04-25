@@ -10,7 +10,6 @@ interface SearchParams {
 }
 
 const prisma = new PrismaClient();
-
 const fetchRestaurantByCity = (searchParams: SearchParams) => {
   const where: any = {};
   if (searchParams.city) {
