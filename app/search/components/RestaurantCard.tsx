@@ -1,8 +1,9 @@
+import Price from "@/components/Price";
 import Link from "next/link";
 
 export default function RestaurantCard({ restaurant }: { restaurant: any }) {
   return (
-    <div className='border-b flex pb-5'>
+    <div className='border-b flex py-4'>
       <img
         src={restaurant.main_image}
         alt=''
@@ -14,11 +15,11 @@ export default function RestaurantCard({ restaurant }: { restaurant: any }) {
           <div className='flex mb-2'>*****</div>
           <p className='ml-2 text-sm'>Awesome</p>
         </div>
-        <div className='mb-9'>
+        <div className='mb-4'>
           <div className='font-light flex text-reg'>
-            <p className='mr-4'>$$$</p>
-            <p className='mr-4'>{restaurant.cuisine}</p>
-            <p className='mr-4'>{restaurant.location}</p>
+            <Price price={restaurant.price} />
+            <p className='mr-4'>{restaurant.cuisine.name}</p>
+            <p className='mr-4'>{restaurant.location.name}</p>
           </div>
         </div>
         <div className='text-red-600'>
