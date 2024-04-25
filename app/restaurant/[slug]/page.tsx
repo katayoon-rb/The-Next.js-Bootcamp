@@ -19,20 +19,9 @@ export interface RestaurantPageProps {
 }
 
 const prisma = new PrismaClient();
-const fetchRestaurantsBySlugs = async (
-  slug: string,
-  id: number
-): Promise<RestaurantPageProps> => {
+const fetchRestaurantsBySlugs = async (slug: string, id: number) => {
   const restaurant = await prisma.restaurant.findUnique({
     where: { slug, id },
-    select: {
-      id: true,
-      name: true,
-      images: true,
-      description: true,
-      slug: true,
-      location: true,
-    },
   });
   if (!restaurant) throw new Error();
   return restaurant;

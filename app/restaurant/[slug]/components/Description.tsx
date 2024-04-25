@@ -1,12 +1,13 @@
 import RestaurantNavbar from "./RestaurantNavbar";
 import ReviewCard from "./ReviewCard";
 import { RestaurantPageProps } from "../page";
+import { Restaurant } from "@prisma/client";
 
-interface Props {
-  restaurant: RestaurantPageProps;
-}
-
-export default function Description({ restaurant }: Props) {
+export default function Description({
+  restaurant,
+}: {
+  restaurant: Restaurant;
+}) {
   return (
     <div className='bg-white w-[70%] rounded p-3 shadow'>
       <RestaurantNavbar id={restaurant.id} slug={restaurant.slug} />
