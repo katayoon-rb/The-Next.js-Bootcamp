@@ -22,7 +22,7 @@ const useAuth = () => {
       });
       try {
         const response = await axios.post(
-          "http://localhost:3000/api/auth/signIn",
+          "http://localhost:3000/api/auth/signin",
           { email, password }
         );
         setAuthState({
@@ -64,7 +64,7 @@ const useAuth = () => {
       // });
       // try {
       //   const response = await axios.post(
-      //     "http://localhost:3000/api/auth/signUp",
+      //     "http://localhost:3000/api/auth/signup",
       //     {
       //       email,
       //       password,
