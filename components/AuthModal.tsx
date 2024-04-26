@@ -70,9 +70,9 @@ export default function AuthModal({ isSignIn }: { isSignIn: boolean }) {
   const { signIn, signUp } = useAuth();
   const handleClick = () => {
     if (isSignIn) {
-      signIn({ email: inputs.email, password: inputs.password });
-      // } else {
-      //   signUp(inputs, handleClose);
+      signIn({ email: inputs.email, password: inputs.password }, handleClose);
+    } else {
+      signUp(inputs, handleClose);
     }
   };
 
