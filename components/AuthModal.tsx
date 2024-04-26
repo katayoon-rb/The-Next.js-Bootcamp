@@ -4,8 +4,8 @@ import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
 import { CircularProgress } from "@mui/material";
 import AuthModalInputs from "./AuthModalInputs";
-// import useAuth from "@/hooks/useAuth";
-// import { AuthenticationContext } from "@/context/AuthContext";
+import useAuth from "@/hooks/useAuth";
+import { AuthenticationContext } from "@/context/AuthContext";
 
 const style = {
   position: "absolute" as "absolute",
@@ -22,9 +22,7 @@ export default function AuthModal({ isSignIn }: { isSignIn: boolean }) {
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
-
-  // const { signIn, signUp } = useAuth();
-  // const { loading, data, error } = useContext(AuthenticationContext);
+  const { loading, data, error } = useContext(AuthenticationContext);
 
   const renderContent = (signInContent: string, signUpContent: string) => {
     return isSignIn ? signInContent : signUpContent;
@@ -46,7 +44,7 @@ export default function AuthModal({ isSignIn }: { isSignIn: boolean }) {
     password: "",
   });
 
-  // button
+  // Filled Form Validation
   const [disabled, setDisabled] = useState(true);
   useEffect(() => {
     if (isSignIn) {
@@ -68,13 +66,15 @@ export default function AuthModal({ isSignIn }: { isSignIn: boolean }) {
     setDisabled(true);
   }, [inputs]);
 
-  // const handleClick = () => {
-  //   if (isSignIn) {
-  //     signIn({ email: inputs.email, password: inputs.password }, handleClose);
-  //   } else {
-  //     signUp(inputs, handleClose);
-  //   }
-  // };
+  // Button onClick
+  const { signIn, signUp } = useAuth();
+  const handleClick = () => {
+    if (isSignIn) {
+      signIn({ email: inputs.email, password: inputs.password });
+      // } else {
+      //   signUp(inputs, handleClose);
+    }
+  };
 
   return (
     <div>
@@ -95,42 +95,42 @@ export default function AuthModal({ isSignIn }: { isSignIn: boolean }) {
         aria-describedby='modal-modal-description'
       >
         <Box sx={style}>
-          {/* {loading ? (
+          {loading ? (
             <div className='py-24 px-2 h-[600px] flex justify-center'>
               <CircularProgress />
             </div>
-          ) : ( */}
-          <div className='p-2'>
-            <div className='uppercase font-bold text-center pb-2 border-b mb-2'>
-              <p className='text-sm'>
-                {renderContent("Sign In", "Create Account")}
-              </p>
+          ) : (
+            <div className='p-2'>
+              <div className='uppercase font-bold text-center pb-2 border-b mb-2'>
+                <p className='text-sm'>
+                  {renderContent("Sign In", "Create Account")}
+                </p>
+              </div>
+
+              <div className='m-auto'>
+                <h2 className='text-2xl font-light text-center'>
+                  {renderContent(
+                    "Log Into Your Account",
+                    "Create Your OpenTable Account"
+                  )}
+                </h2>
+
+                <AuthModalInputs
+                  inputs={inputs}
+                  handleChangeInput={handleChangeInput}
+                  isSignIn={isSignIn}
+                />
+
+                <button
+                  className='uppercase bg-red-600 w-full text-white p-3 rounded text-sm mb-5 disabled:bg-gray-400'
+                  disabled={disabled}
+                  onClick={handleClick}
+                >
+                  {renderContent("Sign In", "Create Account")}
+                </button>
+              </div>
             </div>
-
-            <div className='m-auto'>
-              <h2 className='text-2xl font-light text-center'>
-                {renderContent(
-                  "Log Into Your Account",
-                  "Create Your OpenTable Account"
-                )}
-              </h2>
-
-              <AuthModalInputs
-                inputs={inputs}
-                handleChangeInput={handleChangeInput}
-                isSignIn={isSignIn}
-              />
-
-              <button
-                className='uppercase bg-red-600 w-full text-white p-3 rounded text-sm mb-5 disabled:bg-gray-400'
-                disabled={disabled}
-                // onClick={handleClick}
-              >
-                {renderContent("Sign In", "Create Account")}
-              </button>
-            </div>
-          </div>
-          {/* )} */}
+          )}
         </Box>
       </Modal>
     </div>
