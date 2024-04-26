@@ -82,7 +82,6 @@ const useAuth = () => {
       });
     }
   };
-
   const signOut = () => {
     // cookies().delete("jwt");
     // setAuthState({
@@ -96,6 +95,3 @@ const useAuth = () => {
 };
 
 export default useAuth;
-function setAuthState(arg0: { data: null; error: null; loading: boolean }) {
-  throw new Error("Function not implemented.");
-}

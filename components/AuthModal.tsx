@@ -81,9 +81,9 @@ export default function AuthModal({ isSignIn }: { isSignIn: boolean }) {
       <button
         onClick={handleOpen}
         className={`${renderContent(
-          "bg-blue-400 text-white mr-3",
+          "bg-blue-400 text-white mr-3 ",
           ""
-        )} border p-1 px-4 rounded`}
+        )}border p-1 px-4 rounded`}
       >
         {renderContent("Sign in", "Sign up")}
       </button>
