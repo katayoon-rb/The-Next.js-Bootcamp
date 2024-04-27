@@ -23,7 +23,7 @@ const useAuth = () => {
     });
     try {
       const response = await axios.post(
-        "http://localhost:3000/api/auth/signin",
+        "https://katyopentablenextjs.vercel.app/api/auth/signin",
         { email, password }
       );
       setAuthState({
@@ -65,7 +65,7 @@ const useAuth = () => {
     });
     try {
       const response = await axios.post(
-        "http://localhost:3000/api/auth/signup",
+        "https://katyopentablenextjs.vercel.app/api/auth/signup",
         { email, password, firstName, lastName, city, phone }
       );
       setAuthState({

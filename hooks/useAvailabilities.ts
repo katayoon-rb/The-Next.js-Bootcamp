@@ -24,7 +24,7 @@ export default function useAvailabilities() {
     setLoading(true);
     try {
       const response = await axios.get(
-        `http://localhost:3000/api/restaurant/${id}_${slug}/availability`,
+        `https://katyopentablenextjs.vercel.app/api/restaurant/${id}_${slug}/availability`,
         { params: { day, time, partySize } }
       );
       console.log(response);
