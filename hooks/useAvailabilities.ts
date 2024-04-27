@@ -23,9 +23,7 @@ export default function useAvailabilities() {
     try {
       const response = await axios.get(
         `http://localhost:3000/api/restaurant/${slug}/availability`,
-        {
-          params: { day, time, partySize },
-        }
+        { params: { day, time, partySize } }
       );
       console.log(response);
       setLoading(false);

@@ -15,6 +15,8 @@ export interface RestaurantPageProps {
   name: string;
   images: string[];
   description: string;
+  open_time: string;
+  close_time: string;
   slug: string;
   location: Location;
   reviews: Review[];
@@ -29,6 +31,8 @@ const fetchRestaurantsBySlugs = async (slug: string, id: number) => {
       name: true,
       images: true,
       description: true,
+      open_time: true,
+      close_time: true,
       slug: true,
       location: true,
       reviews: true,
@@ -50,7 +54,11 @@ export default async function RestaurantDetails({
   return (
     <RestaurantLayout slug={params.slug}>
       <Description restaurant={restaurant} />
-      <ReservationCard />
+      <ReservationCard
+        openTime={restaurant.open_time}
+        closeTime={restaurant.close_time}
+        slug={restaurant.slug}
+      />
     </RestaurantLayout>
   );
 }
