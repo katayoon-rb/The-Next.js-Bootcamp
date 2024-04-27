@@ -22,7 +22,7 @@ export default function Description({
       {/* RATING */}
       <div className='flex items-end'>
         <div className='ratings mt-2 flex items-center'>
-          <Stars reviews={restaurant.reviews} />
+          <Stars id={restaurant.id} reviews={restaurant.reviews} />
           <p className='text-reg ml-3'>
             {calculateReviewRatingAverage(restaurant.reviews)}
           </p>
@@ -64,7 +64,7 @@ export default function Description({
         </h1>
         <div>
           {restaurant.reviews.map((review) => (
-            <ReviewCard review={review} />
+            <ReviewCard id={restaurant.id} review={review} />
           ))}
         </div>
       </div>

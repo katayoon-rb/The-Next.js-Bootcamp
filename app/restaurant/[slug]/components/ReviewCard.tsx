@@ -1,7 +1,13 @@
 import Stars from "@/components/Stars";
 import { Review } from "@prisma/client";
 
-export default function ReviewCard({ review }: { review: Review }) {
+export default function ReviewCard({
+  id,
+  review,
+}: {
+  id: number;
+  review: Review;
+}) {
   return (
     <div className='border-b pb-7 mb-7'>
       <div className='flex'>
@@ -19,7 +25,7 @@ export default function ReviewCard({ review }: { review: Review }) {
         <div className='ml-10 w-5/6'>
           <div className='flex items-center'>
             <div className='flex mr-5'>
-              <Stars rating={review.rating} reviews={[]} />
+              <Stars id={id} rating={review.rating} reviews={[]} />
             </div>
           </div>
           <div className='mt-5'>

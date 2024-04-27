@@ -55,6 +55,7 @@ export default async function RestaurantDetails({
     <RestaurantLayout slug={params.slug}>
       <Description restaurant={restaurant} />
       <ReservationCard
+        id={restaurant.id}
         openTime={restaurant.open_time}
         closeTime={restaurant.close_time}
         slug={restaurant.slug}

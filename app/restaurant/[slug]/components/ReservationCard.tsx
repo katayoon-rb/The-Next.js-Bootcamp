@@ -8,10 +8,12 @@ import useAvailabilities from "@/hooks/useAvailabilities";
 import { convertToDisplayTime, Time } from "@/utils/convertToDisplayTime";
 
 export default function ReservationCard({
+  id,
   openTime,
   closeTime,
   slug,
 }: {
+  id: number;
   openTime: string;
   closeTime: string;
   slug: string;
@@ -32,7 +34,7 @@ export default function ReservationCard({
   };
 
   const handleClick = () => {
-    fetchAvailabilities({ slug, day, time, partySize });
+    fetchAvailabilities({ id, slug, day, time, partySize });
   };
 
   const filterTimeByRestaurantOpenWindow = () => {
@@ -62,7 +64,9 @@ export default function ReservationCard({
           onChange={(e) => setPartySize(e.target.value)}
         >
           {partySizes.map((size) => (
-            <option value={size.value}>{size.label}</option>
+            <option key={id + "-" + size.value} value={size.value}>
+              {size.label}
+            </option>
           ))}
         </select>
       </div>
@@ -87,7 +91,9 @@ export default function ReservationCard({
             onChange={(e) => setTime(e.target.value)}
           >
             {filterTimeByRestaurantOpenWindow().map((time) => (
-              <option value={time.time}>{time.displayTime}</option>
+              <option key={id + "-" + time.displayTime} value={time.time}>
+                {time.displayTime}
+              </option>
             ))}
           </select>
         </div>
@@ -99,7 +105,7 @@ export default function ReservationCard({
           disabled={loading}
         >
           {loading ? (
-            <CircularProgress className='w-4' color='inherit' />
+            <CircularProgress className='w-[18px]' color='inherit' />
           ) : (
             "Find a Time"
           )}
@@ -112,6 +118,7 @@ export default function ReservationCard({
             {data.map((time) => {
               return time.available ? (
                 <Link
+                  key={id + "-" + time}
                   href={`/reserve/${slug}?date=${day}T${time.time}&partySize=${partySize}`}
                   className='bg-red-600 cursor-pointer p-2 w-24 text-center text-white mb-3 rounded mr-3'
                 >

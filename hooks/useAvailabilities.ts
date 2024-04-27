@@ -9,11 +9,13 @@ export default function useAvailabilities() {
   >(null);
 
   const fetchAvailabilities = async ({
+    id,
     slug,
     partySize,
     day,
     time,
   }: {
+    id: number;
     slug: string;
     partySize: string;
     day: string;
@@ -22,7 +24,7 @@ export default function useAvailabilities() {
     setLoading(true);
     try {
       const response = await axios.get(
-        `http://localhost:3000/api/restaurant/${slug}/availability`,
+        `http://localhost:3000/api/restaurant/${id}_${slug}/availability`,
         { params: { day, time, partySize } }
       );
       console.log(response);

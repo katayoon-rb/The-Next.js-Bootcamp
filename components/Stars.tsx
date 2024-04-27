@@ -7,9 +7,11 @@ import { Review } from "@prisma/client";
 import { calculateReviewRatingAverage } from "@/utils/calculateReviewRatingAverage";
 
 export default function Stars({
+  id,
   reviews,
   rating,
 }: {
+  id: number;
   reviews: Review[];
   rating?: number;
 }) {
@@ -28,8 +30,12 @@ export default function Stars({
       } else stars.push(emptyStar);
     }
 
+    let i = 0;
     return stars.map((star) => {
-      return <Image src={star} alt='' className='w-4 h-4 mr-1' />;
+      i++;
+      return (
+        <Image key={id + "-" + i} src={star} alt='' className='w-4 h-4 mr-1' />
+      );
     });
   };
 
